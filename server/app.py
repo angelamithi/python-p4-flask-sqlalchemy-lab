@@ -35,9 +35,14 @@ def zookeeper_by_id(id):
     response_body=f'''
 <ul>{zookeeper.name}</ul>
 <ul>{zookeeper.birthday}</ul>
-<ul>{zookeeper.animals.name}</ul>
 
 '''
+    animals=[animal for animal in zookeeper.animals]
+    if not animals:
+        response_body += f'<h2>Has not been assigned any animals at this time.</h2>'
+    else:
+        for animal in animals:
+             response_body +=f'<h2>Takes care of {animal.name}</h2>'
     response=make_response(response_body,200)
     return response
 @app.route('/enclosure/<int:id>')
