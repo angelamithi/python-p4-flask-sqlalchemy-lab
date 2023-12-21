@@ -51,8 +51,14 @@ def enclosure_by_id(id):
     response_body=f'''
 <ul>{enclosure.environment}</ul>
 <ul>{enclosure.open_to_visitors}
-<ul>{enclosure.animals}</ul>
+
 '''
+    animals=[animal for animal in enclosure.animals]
+    if not animals:
+        response_body=f'<h2>No animals in the {enclosure.environment} closure</h2>'
+    else:
+        for animal in animals:
+            response_body+=f'<ul>{animal.name}</ul>'
     response=make_response(response_body,200)
     return response
 
